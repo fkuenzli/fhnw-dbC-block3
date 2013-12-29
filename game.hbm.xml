@@ -25,5 +25,12 @@
 		<property name="location">
 			<column name="location" />
 		</property>
+		<property name="teamHomeId">
+			<column name="location" />
+		</property>
+		<property name="teamAwayId">
+			<column name="location" />
+		</property>
+		
 	</class>
 </hibernate-mapping>

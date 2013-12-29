@@ -30,7 +30,7 @@ public class TestOperations {
 
 		
 		/**
-		 * add some test records
+		 * TEST RECORDS
 		 */
 		
 		test.addClub("Handball Brugg");
@@ -59,11 +59,34 @@ public class TestOperations {
 		test.addFan("Zaida", "Begin");
 		test.addFan("Jc", "Calcote");
 		
-		/*
+		
 		Team team = test.getTeam(1);
-		team.setName("Handball Brugg 1");
-		test.updateTeam(team);
-		*/
+		Club club = test.getClub(1);
+		Coach coach = test.getCoach(1);
+		
+		test.addTeamToClub(team, club);
+		test.addCoachToTeam(coach, team);
+		
+		team = test.getTeam(2);
+		club = test.getClub(2);
+		coach = test.getCoach(2);
+		
+		test.addTeamToClub(team, club);
+		test.addCoachToTeam(coach, team);
+		
+		team = test.getTeam(3);
+		club = test.getClub(3);
+		coach = test.getCoach(3);
+		
+		test.addTeamToClub(team, club);
+		test.addCoachToTeam(coach, team);
+		
+		team = test.getTeam(4);
+		club = test.getClub(4);
+		coach = test.getCoach(4);
+		
+		test.addTeamToClub(team, club);
+		test.addCoachToTeam(coach, team);
 		
 	}
 	
@@ -71,7 +94,6 @@ public class TestOperations {
 	 * @param name
 	 */
 	private void addTeam(String name) {
-
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
@@ -90,7 +112,7 @@ public class TestOperations {
 		} finally{
 			session.flush();
 			session.close();
-		} 
+		}
 	}
 	
 	/**
@@ -98,19 +120,17 @@ public class TestOperations {
 	 * @param club
 	 */
 	private void addTeamToClub(Team team, Club club) {
-		
-		club.addTeam(team);
-		
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
+		club.addTeam(team);
+		
 		try {
 			trns = session.beginTransaction();
-			
+
 			session.update(club);
-			
-			session.getTransaction().commit();			
-			
+
+			session.getTransaction().commit();
 		} catch (RuntimeException e) {
 			if(trns != null){
 				trns.rollback();
@@ -119,7 +139,6 @@ public class TestOperations {
 		} finally{
 			session.flush();
 			session.close();
-			
 		}
 		
 	}
@@ -142,7 +161,9 @@ public class TestOperations {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		try {
+			trns = session.beginTransaction();
 			team = (Team) session.get(Team.class, teamid);
+			session.getTransaction().commit();
 		} catch (RuntimeException e) {
 			if(trns != null){
 				trns.rollback();
@@ -597,8 +618,24 @@ public class TestOperations {
 	 * @return
 	 */
 	private Club getClub(int clubid) {
+		Transaction trns = null;
+		Club club = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Club club = (Club) session.get(Club.class, clubid);
+		
+		try {
+			trns = session.beginTransaction();
+			club = (Club) session.get(Club.class, clubid);
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+			
+		}
 		
 		return club;
 	}

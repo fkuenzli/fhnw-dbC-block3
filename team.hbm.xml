@@ -28,7 +28,7 @@
 			 <many-to-many column="fan_id" class="com.hib.Fan"/>
 		</set>
 		
-		<set name="coaches" table="teamscoaches" cascade="all">
+		<set name="coaches" table="teamscoaches" cascade="all" lazy="false">
 			<key column="team_id"/>
 			<many-to-many column="coach_id" class="com.hib.Coach"/>
 		</set>

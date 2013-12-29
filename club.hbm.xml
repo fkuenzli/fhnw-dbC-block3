@@ -22,5 +22,11 @@
 		<property name="name">
 			<column name="name" />
 		</property>
+		
+		<set name="teams" table="clubsteams" cascade="all" lazy="false">
+			<key column="club_id"/>
+			 <many-to-many column="team_id" class="com.hib.Team"/>
+		</set>
+		
 	</class>
 </hibernate-mapping>

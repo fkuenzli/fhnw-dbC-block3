@@ -14,6 +14,8 @@ public class Game {
 	private int id;
 	private Date starttime;
 	private String location;
+	private int teamHomeId;
+	private int teamAwayId;
 	
 	public Game() {
 		
@@ -46,6 +48,22 @@ public class Game {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getTeamHomeId() {
+		return teamHomeId;
+	}
+
+	public void setTeamHomeId(int teamHomeId) {
+		this.teamHomeId = teamHomeId;
+	}
+
+	public int getTeamAwayId() {
+		return teamAwayId;
+	}
+
+	public void setTeamAwayId(int teamAwayId) {
+		this.teamAwayId = teamAwayId;
 	}
 	
 	
