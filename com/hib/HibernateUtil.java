@@ -1,7 +1,7 @@
 /*
  * Written by Fabian Kuenzli
  * University of Applied Sciences of Northwestern Switzerland, FHNW
- * Computer Science, iCompetence
+ * Computer Science, Software Engineering & Design
  * fabian.kuenzli@gmail.com
  * (c) 2013
  */

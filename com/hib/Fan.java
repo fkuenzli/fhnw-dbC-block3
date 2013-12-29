@@ -1,7 +1,7 @@
 /*
  * Written by Fabian Kuenzli
  * University of Applied Sciences of Northwestern Switzerland, FHNW
- * Computer Science, iCompetence
+ * Computer Science, Software Engineering & Design
  * fabian.kuenzli@gmail.com
  * (c) 2013
  */
@@ -12,7 +12,6 @@ public class Fan extends Person {
 	
 	private int id;
 	private int personID;
-	private int fanSince;
 
 	public Fan() {
 		super();
@@ -40,12 +39,4 @@ public class Fan extends Person {
 		this.personID = personID;
 	}
 	
-	public int getFanSince() {
-		return fanSince;
-	}
-
-	public void setFanSince(int fanSince) {
-		this.fanSince = fanSince;
-	}
-
 }

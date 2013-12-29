@@ -3,6 +3,15 @@
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
+<!--
+
+ * Written by Fabian Kuenzli
+ * University of Applied Sciences of Northwestern Switzerland, FHNW
+ * Computer Science, Software Engineering & Design
+ * fabian.kuenzli@gmail.com
+ * (c) 2013
+
+-->
 
 <hibernate-mapping>
 	<class name="com.hib.Team" table="teams" >
@@ -13,5 +22,16 @@
 		<property name="name">
 			<column name="name" />
 		</property>
+		
+		<set name="fans" table="teamsfans" cascade="all">
+			<key column="team_id"/>
+			 <many-to-many column="fan_id" class="com.hib.Fan"/>
+		</set>
+		
+		<set name="coaches" table="teamscoaches" cascade="all">
+			<key column="team_id"/>
+			<many-to-many column="coach_id" class="com.hib.Coach"/>
+		</set>
+		
 	</class>
 </hibernate-mapping>

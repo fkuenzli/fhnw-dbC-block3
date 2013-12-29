@@ -1,7 +1,7 @@
 /*
  * Written by Fabian Kuenzli
  * University of Applied Sciences of Northwestern Switzerland, FHNW
- * Computer Science, iCompetence
+ * Computer Science, Software Engineering & Design
  * fabian.kuenzli@gmail.com
  * (c) 2013
  */
@@ -15,6 +15,10 @@ public class Coach extends Person {
 	
 	public Coach() {
 		
+	}
+	
+	public Coach(String firstname, String lastname) {
+		super(firstname, lastname);
 	}
 	
 	public Coach(String firstname, String lastname, String education) {

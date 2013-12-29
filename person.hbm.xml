@@ -8,7 +8,7 @@
 
  * Written by Fabian Kuenzli
  * University of Applied Sciences of Northwestern Switzerland, FHNW
- * Computer Science, iCompetence
+ * Computer Science, Software Engineering & Design
  * fabian.kuenzli@gmail.com
  * (c) 2013
 
@@ -56,10 +56,6 @@
 		
 		<joined-subclass name="com.hib.Fan" table="fans">
 			<key column="personID"/>
-			
-			<property name="fanSince">
-				<column name="fanSince"/>
-			</property>
 			
 		</joined-subclass>
 		
