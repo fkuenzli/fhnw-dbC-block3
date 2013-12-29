@@ -8,9 +8,13 @@
 
 package com.hib;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Club {
 	private int id;
 	private String name;
+	private Set<Team> teams = new HashSet<Team>(0);
 	
 	public Club() {
 		super();
@@ -34,6 +38,18 @@ public class Club {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
+	
+	public void addTeam(Team team) {
+		this.teams.add(team);
 	}
 	
 	

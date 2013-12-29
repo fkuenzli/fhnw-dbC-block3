@@ -11,7 +11,6 @@ package com.hib;
 public class Coach extends Person {
 	private int id;
 	private int personID;
-	private String education;
 	
 	public Coach() {
 		
@@ -19,11 +18,6 @@ public class Coach extends Person {
 	
 	public Coach(String firstname, String lastname) {
 		super(firstname, lastname);
-	}
-	
-	public Coach(String firstname, String lastname, String education) {
-		super(firstname, lastname);
-		this.setEducation(education);
 	}
 
 	public int getId() {
@@ -41,13 +35,4 @@ public class Coach extends Person {
 	public void setPersonID(int personID) {
 		this.personID = personID;
 	}
-	
-	public String getEducation() {
-		return education;
-	}
-
-	public void setEducation(String education) {
-		this.education = education;
-	}
-
 }

@@ -53,6 +53,10 @@ public class Team {
 	public void setFans(Set<Fan> fans) {
 		this.fans = fans;
 	}
+	
+	public void addFan(Fan fan) {
+		this.fans.add(fan);
+	}
 
 	public Set<Coach> getCoaches() {
 		return coaches;
@@ -60,5 +64,9 @@ public class Team {
 
 	public void setCoaches(Set<Coach> coaches) {
 		this.coaches = coaches;
+	}
+	
+	public void addCoach(Coach coach) {
+		this.coaches.add(coach);
 	}
 }

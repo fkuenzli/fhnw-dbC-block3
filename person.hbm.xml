@@ -28,12 +28,7 @@
 		</property>
 		
 		<joined-subclass name="com.hib.Coach" table="coaches">
-			<key column="personID"/>
-			
-			<property name="education">
-				<column name="education" />
-			</property>
-			
+			<key column="personID"/>			
 		</joined-subclass>
 		
 		<joined-subclass name="com.hib.Player" table="players">
