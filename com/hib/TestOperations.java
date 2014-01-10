@@ -126,7 +126,7 @@ public class TestOperations {
 			trns = session.beginTransaction();
 
 			Team team = new Team(name);
-
+			
 			session.save(team);
 
 			session.getTransaction().commit();
@@ -864,7 +864,6 @@ public class TestOperations {
 		} finally {
 			session.flush();
 			session.close();
-			
 		}
 	}
 

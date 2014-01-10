@@ -11,7 +11,7 @@ package com.hib;
 import java.util.GregorianCalendar;
 
 public class Round {
-	private String id;
+	private int id;
 	private String name;
 	private GregorianCalendar startdate;
 	private GregorianCalendar enddate;
@@ -28,14 +28,14 @@ public class Round {
 		this.mode = mode;		
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -67,4 +67,5 @@ public class Round {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
+
 }
