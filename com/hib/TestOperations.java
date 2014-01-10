@@ -9,10 +9,8 @@
 
 package com.hib;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -30,7 +28,7 @@ public class TestOperations {
 
 		
 		/**
-		 * TEST RECORDS
+		 * Create statements
 		 */
 		
 		test.addClub("Handball Brugg");
@@ -58,6 +56,8 @@ public class TestOperations {
 		test.addFan("Dianne", "Gilligan");
 		test.addFan("Zaida", "Begin");
 		test.addFan("Jc", "Calcote");
+		
+		// players hinzufügen
 		
 		
 		Team team = test.getTeam(1);
@@ -87,6 +87,32 @@ public class TestOperations {
 		
 		test.addTeamToClub(team, club);
 		test.addCoachToTeam(coach, team);
+		
+		
+		test.addRound("Vorrunde", new GregorianCalendar(2013,9,7), new GregorianCalendar(2013,12,14), "2 Aufsteiger, 2 Absteiger");
+		test.addGame(new GregorianCalendar(2013,9,7,13,15,0), "Zofingen BZZ"); // Teams hinzufügen
+		test.addGame(new GregorianCalendar(2013,9,7,16,30,0), "Brugg Mühlimatt"); // Teams hinzufügen
+		
+		
+		/**
+		 * Read statements
+		 */
+		
+		/**
+		 * Update statements
+		 */
+		
+		// change time of game
+		// change players position
+		
+		
+		/**
+		 * Delete statements
+		 */
+		
+		// delete fan of team
+		// delete 
+		
 		
 	}
 	
@@ -700,7 +726,7 @@ public class TestOperations {
 	 * @param starttime
 	 * @param location
 	 */
-	private void addGame(Date starttime,String location) {
+	private void addGame(GregorianCalendar starttime,String location) {
 
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -813,7 +839,7 @@ public class TestOperations {
 	 * @param enddate
 	 * @param mode
 	 */
-	private void addRound(String name, Date startdate, Date enddate, String mode) {
+	private void addRound(String name, GregorianCalendar startdate, GregorianCalendar enddate, String mode) {
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {

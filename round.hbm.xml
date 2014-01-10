@@ -22,7 +22,6 @@
 		<property name="name">
 			<column name="name"/>
 		</property>
-		
 		<property name="startdate">
 			<column name="startdate" />
 		</property>

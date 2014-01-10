@@ -46,6 +46,10 @@
 			<property name="mainPosition">
 				<column name="mainPosition"/>
 			</property>
+			<property name="teamID">
+				<column name="teamID"/>
+			</property>
+			
 			
 		</joined-subclass>
 		

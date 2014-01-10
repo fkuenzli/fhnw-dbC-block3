@@ -8,20 +8,20 @@
 
 package com.hib;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Round {
 	private String id;
 	private String name;
-	private Date startdate;
-	private Date enddate;
+	private GregorianCalendar startdate;
+	private GregorianCalendar enddate;
 	private String mode;
 	
 	public Round() {
 		
 	}
 	
-	public Round (String name, Date startdate, Date enddate, String mode) {
+	public Round (String name, GregorianCalendar startdate, GregorianCalendar enddate, String mode) {
 		this.name = name;
 		this.startdate = startdate;
 		this.enddate = enddate;
@@ -44,19 +44,19 @@ public class Round {
 		this.name = name;
 	}
 
-	public Date getStartdate() {
+	public GregorianCalendar getStartdate() {
 		return startdate;
 	}
 
-	public void setStartdate(Date startdate) {
+	public void setStartdate(GregorianCalendar startdate) {
 		this.startdate = startdate;
 	}
 
-	public Date getEnddate() {
+	public GregorianCalendar getEnddate() {
 		return enddate;
 	}
 
-	public void setEnddate(Date enddate) {
+	public void setEnddate(GregorianCalendar enddate) {
 		this.enddate = enddate;
 	}
 

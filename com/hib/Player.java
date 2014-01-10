@@ -16,6 +16,7 @@ public class Player extends Person {
 	private double height;
 	private double weight;
 	private String mainPosition;
+	private int teamID;
 	
 	public Player() {
 		
@@ -72,5 +73,13 @@ public class Player extends Person {
 
 	public void setMainPosition(String mainPosition) {
 		this.mainPosition = mainPosition;
+	}
+
+	public int getTeamID() {
+		return teamID;
+	}
+
+	public void setTeamID(int teamID) {
+		this.teamID = teamID;
 	}	
 }

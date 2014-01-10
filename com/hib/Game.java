@@ -8,11 +8,11 @@
 
 package com.hib;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Game {
 	private int id;
-	private Date starttime;
+	private GregorianCalendar starttime;
 	private String location;
 	private int teamHomeId;
 	private int teamAwayId;
@@ -21,16 +21,23 @@ public class Game {
 		
 	}
 	
-	public Game(Date starttime, String location) {
+	public Game(GregorianCalendar starttime, String location) {
 		this.starttime = starttime;
 		this.location = location;
 	}
+	
+	public Game(GregorianCalendar starttime, String location, int teamHomeId, int teamAwayId) {
+		this.starttime = starttime;
+		this.location = location;
+		this.teamHomeId = teamHomeId;
+		this.teamAwayId = teamAwayId;
+	}
 
-	public Date getStarttime() {
+	public GregorianCalendar getStarttime() {
 		return starttime;
 	}
 
-	public void setStartime(Date starttime) {
+	public void setStartime(GregorianCalendar starttime) {
 		this.starttime = starttime;
 	}
 

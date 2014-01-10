@@ -8,7 +8,7 @@
 
 package com.hib;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ChampionsRound extends Round {
 
@@ -16,7 +16,7 @@ public class ChampionsRound extends Round {
 		super();
 	}
 	
-	public ChampionsRound(String name, Date startdate, Date enddate, String mode) {
+	public ChampionsRound(String name, GregorianCalendar startdate, GregorianCalendar enddate, String mode) {
 		super(name, startdate, enddate, mode);
 		// TODO Auto-generated constructor stub
 	}
