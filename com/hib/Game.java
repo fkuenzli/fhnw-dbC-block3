@@ -16,6 +16,7 @@ public class Game {
 	private String location;
 	private int teamHomeId;
 	private int teamAwayId;
+	private int roundID;
 	
 	public Game() {
 		
@@ -37,7 +38,7 @@ public class Game {
 		return starttime;
 	}
 
-	public void setStartime(GregorianCalendar starttime) {
+	public void setStarttime(GregorianCalendar starttime) {
 		this.starttime = starttime;
 	}
 
@@ -71,6 +72,14 @@ public class Game {
 
 	public void setTeamAwayId(int teamAwayId) {
 		this.teamAwayId = teamAwayId;
+	}
+
+	public int getRoundID() {
+		return roundID;
+	}
+
+	public void setRoundID(int roundID) {
+		this.roundID = roundID;
 	}
 	
 	

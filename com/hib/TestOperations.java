@@ -90,8 +90,8 @@ public class TestOperations {
 		
 		
 		test.addRound("Vorrunde", new GregorianCalendar(2013,9,7), new GregorianCalendar(2013,12,14), "2 Aufsteiger, 2 Absteiger");
-		test.addGame(new GregorianCalendar(2013,9,7,13,15,0), "Zofingen BZZ"); // Teams hinzufügen
-		test.addGame(new GregorianCalendar(2013,9,7,16,30,0), "Brugg Mühlimatt"); // Teams hinzufügen
+		test.addGame(new GregorianCalendar(2013,9,7,13,15,0), "Zofingen BZZ",1); // Teams hinzufügen
+		test.addGame(new GregorianCalendar(2013,9,7,16,30,0), "Brugg Mühlimatt",1); // Teams hinzufügen
 		
 		
 		/**
@@ -726,7 +726,7 @@ public class TestOperations {
 	 * @param starttime
 	 * @param location
 	 */
-	private void addGame(GregorianCalendar starttime,String location) {
+	private void addGame(GregorianCalendar starttime,String location, int roundID) {
 
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -735,8 +735,9 @@ public class TestOperations {
 
 			Game game = new Game();
 
-			game.setStartime(starttime);
+			game.setStarttime(starttime);
 			game.setLocation(location);
+			game.setRoundID(roundID);
 
 			session.save(game);
 
