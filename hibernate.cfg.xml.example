@@ -44,5 +44,6 @@
 		<mapping resource="club.hbm.xml"/>
 		<mapping resource="team.hbm.xml"/>
 		<mapping resource="round.hbm.xml"/>
+		<mapping resource="game.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>
