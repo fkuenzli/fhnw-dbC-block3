@@ -57,6 +57,17 @@ public class TestOperations {
 		test.addFan("Zaida", "Begin");
 		test.addFan("Jc", "Calcote");
 		
+		test.addPlayer("Steven", "Hunter", 395067, 1.81, 78, "Flügel links");
+		test.addPlayer("Larry", "Zimmerman", 532373, 1.98, 101, "Rückraum links");
+		test.addPlayer("Darnell", "Garza", 712573, 1.71, 70, "Hinten mitte");
+		test.addPlayer("Noah", "Cole", 143280, 1.88, 93, "Rückraum rechts");
+		test.addPlayer("Floyd", "Mckinney", 487733, 1.91, 95, "Kreis");
+		test.addPlayer("Peter", "Estrada", 360103, 1.77, 65, "Rückraum links");
+		test.addPlayer("Woodrow", "Cross", 613561, 1.73, 63, "Flügel rechts");
+		test.addPlayer("Kelly", "Jensen", 386101, 1.98, 92, "Rückraum rechts");
+		test.addPlayer("Shawn", "Cook", 136187, 1.92, 90, "Rückraum links");
+		test.addPlayer("Cedric", "Soto", 334343, 1.69, 69, "Flügel links");
+		
 		// players hinzufügen
 		
 		
@@ -306,7 +317,25 @@ public class TestOperations {
 	 * @param player
 	 */
 	private void addPlayerToTeam(Team team, Player player) {
-		
+		Transaction trns = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			trns = session.beginTransaction();
+			
+			player.setTeamID(team.getId());
+
+			session.save(player);
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+		} 
 	}
 	
 	/**
