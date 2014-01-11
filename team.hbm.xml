@@ -22,8 +22,11 @@
 		<property name="name">
 			<column name="name" />
 		</property>
+		<property name="clubID">
+			<column name="club_id" />
+		</property>
 		
-		<set name="fans" table="teamsfans" cascade="all">
+		<set name="fans" table="teamsfans" cascade="all" lazy="false">
 			<key column="team_id"/>
 			 <many-to-many column="fan_id" class="com.hib.Fan"/>
 		</set>

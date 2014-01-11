@@ -26,13 +26,13 @@
 			<column name="location" />
 		</property>
 		<property name="teamHomeId">
-			<column name="teamHomeId" />
+			<column name="team_home_id" />
 		</property>
 		<property name="teamAwayId">
-			<column name="teamAwayId" />
+			<column name="team_away_id" />
 		</property>
 		<property name="roundID">
-			<column name="roundID"/>
+			<column name="round_id"/>
 		</property>
 		
 	</class>

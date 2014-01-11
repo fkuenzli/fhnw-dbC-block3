@@ -14,6 +14,7 @@ import java.util.Set;
 public class Team {
 	private int id;
 	private String name;
+	private int clubID;
 	private Set<Fan> fans = new HashSet<Fan>(0);
 	private Set<Coach> coaches = new HashSet<Coach>(0);
 	
@@ -68,5 +69,13 @@ public class Team {
 	
 	public void addCoach(Coach coach) {
 		this.coaches.add(coach);
+	}
+
+	public int getClubID() {
+		return clubID;
+	}
+
+	public void setClubID(int clubID) {
+		this.clubID = clubID;
 	}
 }
