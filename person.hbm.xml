@@ -28,7 +28,11 @@
 		</property>
 		
 		<joined-subclass name="com.hib.Coach" table="coaches">
-			<key column="personID"/>			
+			<key column="personID"/>	
+				
+			<property name="teamID">
+				<column name="teamID"/>
+			</property>
 		</joined-subclass>
 		
 		<joined-subclass name="com.hib.Player" table="players">
@@ -55,7 +59,11 @@
 		
 		<joined-subclass name="com.hib.Fan" table="fans">
 			<key column="personID"/>
-			
+
+			<property name="teamID">
+				<column name="teamID"/>
+			</property>
+					
 		</joined-subclass>
 		
 		

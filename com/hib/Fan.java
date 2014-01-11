@@ -11,6 +11,7 @@ package com.hib;
 public class Fan extends Person {
 	
 	private int personID;
+	private int teamID;
 
 	public Fan() {
 		super();
@@ -27,6 +28,14 @@ public class Fan extends Person {
 
 	public void setPersonID(int personID) {
 		this.personID = personID;
+	}
+
+	public int getTeamID() {
+		return teamID;
+	}
+
+	public void setTeamID(int teamID) {
+		this.teamID = teamID;
 	}
 	
 }

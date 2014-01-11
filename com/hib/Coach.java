@@ -10,6 +10,7 @@ package com.hib;
 
 public class Coach extends Person {
 	private int personID;
+	private int teamID;
 	
 	public Coach() {
 		
@@ -25,5 +26,13 @@ public class Coach extends Person {
 
 	public void setPersonID(int personID) {
 		this.personID = personID;
+	}
+
+	public int getTeamID() {
+		return teamID;
+	}
+
+	public void setTeamID(int teamID) {
+		this.teamID = teamID;
 	}
 }
