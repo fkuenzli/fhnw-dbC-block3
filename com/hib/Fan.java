@@ -10,7 +10,6 @@ package com.hib;
 
 public class Fan extends Person {
 	
-	private int id;
 	private int personID;
 
 	public Fan() {
@@ -20,15 +19,6 @@ public class Fan extends Person {
 	public Fan(String firstname, String lastname) {
 		super(firstname, lastname);
 		// TODO Auto-generated constructor stub
-	}
-	
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getPersonID() {

@@ -10,7 +10,6 @@ package com.hib;
 
 public class Player extends Person {
 	
-	private int id;
 	private int personID;
 	private int licenceID;
 	private double height;
@@ -25,14 +24,6 @@ public class Player extends Person {
 	public Player(String firstname, String lastname) {
 		super(firstname, lastname);
 		// TODO Auto-generated constructor stub
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public int getPersonID() {
