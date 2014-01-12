@@ -3,13 +3,14 @@
  * University of Applied Sciences of Northwestern Switzerland, FHNW
  * Computer Science, Software Engineering & Design
  * fabian.kuenzli@gmail.com
- * (c) 2013
+ * (c) 2014
  */
 
 
 package com.hib;
 
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -19,112 +20,180 @@ import org.hibernate.Transaction;
 
 
 public class TestOperations {
+	
+	private static TestOperations usecase = new TestOperations();
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		TestOperations test = new TestOperations();
-
+		addTestData();
+		usecase1();
+		usecase2();
+		usecase3();
+		usecase4();
+	}
+	
+	
+	/**
+	 * Weise einem Team Coaches, Spieler und Fans zu und teile das Team es einem bestehenden Club zu.
+	 */
+	private static void usecase1() {
+		Team team = usecase.getTeamById(1);
 		
+		Coach coach = usecase.getCoachById(1);
+		usecase.addCoachToTeam(coach, team);
+		
+		coach = usecase.getCoachById(2);
+		usecase.addCoachToTeam(coach, team);
+		
+		usecase.addPlayerToTeam(team, 15);
+		usecase.addPlayerToTeam(team, 16);
+		usecase.addPlayerToTeam(team, 17);
+		usecase.addTeamToClub(1, 1);
+		
+		Fan fan = usecase.getFanByName("Marylin", "Kellar");
+		usecase.addFanToTeam(fan, team);
+		
+		fan = usecase.getFanByName("Clayton", "Segers");
+		usecase.addFanToTeam(fan, team);
+		
+		fan = usecase.getFanByName("Loise", "Herd");
+		usecase.addFanToTeam(fan, team);
+		
+		fan = usecase.getFanByName("Adria", "Shimek");
+		usecase.addFanToTeam(fan, team);
+		
+	}
+	
+	/**
+	 * Lösche einen Coach von einem Team und weise einen neuen zu.
+	 */
+	private static void usecase2() {
+		Team team = usecase.getTeamById(1);
+
+		Coach coachOld = usecase.getCoachById(1);
+		Coach coachNew = usecase.getCoachById(3);
+		
+		usecase.removeCoachFromTeam(coachOld, team);
+		usecase.addCoachToTeam(coachNew, team);
+	}
+	
+	
+	/**
+	 * Liste alle Spieler von [team] auf.
+	 */
+	private static void usecase3() {
+		
+		Team team = usecase.getTeamById(2);
+		
+		List<Player> players = usecase.getPlayersOfSpecificTeam(team);
+		Player player = null;
+		for(Iterator<Player> i = players.iterator(); i.hasNext();) {
+			player = i.next();
+			System.out.println(player.getLicenceID() + " " + player.getFirstname() + " " + player.getLastname());
+		}		
+	}
+	
+	/**
+	 * Ändere den Clubnamen.
+	 */
+	private static void usecase4() {
+		Club club = usecase.getClubByName("TV Brittnau Handball");
+		
+		usecase.changeNameOfClub(club, "HV Brittnau");		
+	}
+	
+	private static void addTestData() {
 		/**
 		 * Create statements
 		 */
 		
-		test.addClub("Handball Brugg");
-		test.addClub("SV Lägern Wettingen");
-		test.addClub("TV Brittnau Handball");
-		test.addClub("STV Baden");
+		usecase.addClub("Handball Brugg");
+		usecase.addClub("SV Lägern Wettingen");
+		usecase.addClub("TV Brittnau Handball");
+		usecase.addClub("STV Baden");
 		
-		test.addTeam("Handball Brugg 2");
-		test.addTeam("SV Lägern Wettingen 2");
-		test.addTeam("TV Brittnau 1");
-		test.addTeam("STV Baden 2");
+		usecase.addTeam("Handball Brugg 2");
+		usecase.addTeam("SV Lägern Wettingen 2");
+		usecase.addTeam("TV Brittnau 1");
+		usecase.addTeam("STV Baden 2");
 		
-		test.addCoach("Oretha","Hendrie");
-		test.addCoach("Jennie","Rollison");
-		test.addCoach("Jolyn","Fenstermaker");
-		test.addCoach("Lucinda","Peet");
+		usecase.addCoach("Oretha","Hendrie",5);
+		usecase.addCoach("Jennie","Rollison",2);
+		usecase.addCoach("Jolyn","Fenstermaker",2);
+		usecase.addCoach("Lucinda","Peet",4);
 		
-		test.addFan("Marylin", "Kellar");
-		test.addFan("Clayton", "Segers");
-		test.addFan("Loise", "Herd");
-		test.addFan("Adria", "Shimek");
-		test.addFan("Carole", "Farias");
-		test.addFan("Hyo", "Southerland");
-		test.addFan("Brent", "Sheets");
-		test.addFan("Dianne", "Gilligan");
-		test.addFan("Zaida", "Begin");
-		test.addFan("Jc", "Calcote");
+		usecase.addFan("Marylin", "Kellar");
+		usecase.addFan("Clayton", "Segers");
+		usecase.addFan("Loise", "Herd");
+		usecase.addFan("Adria", "Shimek");
+		usecase.addFan("Carole", "Farias");
+		usecase.addFan("Hyo", "Southerland");
+		usecase.addFan("Brent", "Sheets");
+		usecase.addFan("Dianne", "Gilligan");
+		usecase.addFan("Zaida", "Begin");
+		usecase.addFan("Jc", "Calcote");
+			
+		usecase.addPlayer("Steven", "Hunter", 395067, 1.81, 78, "Flügel links");
+		usecase.addPlayer("Larry", "Zimmerman", 532373, 1.98, 101, "Rückraum links");
+		usecase.addPlayer("Darnell", "Garza", 712573, 1.71, 70, "Hinten mitte");
+		usecase.addPlayer("Noah", "Cole", 143280, 1.88, 93, "Rückraum rechts");
+		usecase.addPlayer("Floyd", "Mckinney", 487733, 1.91, 95, "Kreis");
+		usecase.addPlayer("Peter", "Estrada", 360103, 1.77, 65, "Rückraum links");
+		usecase.addPlayer("Woodrow", "Cross", 613561, 1.73, 63, "Flügel rechts");
+		usecase.addPlayer("Kelly", "Jensen", 386101, 1.98, 92, "Rückraum rechts");
+		usecase.addPlayer("Shawn", "Cook", 136187, 1.92, 90, "Rückraum links");
+		usecase.addPlayer("Cedric", "Soto", 334343, 1.69, 69, "Flügel links");
 		
-		test.addPlayer("Steven", "Hunter", 395067, 1.81, 78, "Flügel links");
-		test.addPlayer("Larry", "Zimmerman", 532373, 1.98, 101, "Rückraum links");
-		test.addPlayer("Darnell", "Garza", 712573, 1.71, 70, "Hinten mitte");
-		test.addPlayer("Noah", "Cole", 143280, 1.88, 93, "Rückraum rechts");
-		test.addPlayer("Floyd", "Mckinney", 487733, 1.91, 95, "Kreis");
-		test.addPlayer("Peter", "Estrada", 360103, 1.77, 65, "Rückraum links");
-		test.addPlayer("Woodrow", "Cross", 613561, 1.73, 63, "Flügel rechts");
-		test.addPlayer("Kelly", "Jensen", 386101, 1.98, 92, "Rückraum rechts");
-		test.addPlayer("Shawn", "Cook", 136187, 1.92, 90, "Rückraum links");
-		test.addPlayer("Cedric", "Soto", 334343, 1.69, 69, "Flügel links");
+				
+		usecase.addTeamToClub(2,2);
+		usecase.addPlayerToTeam(2, 18);
+		usecase.addPlayerToTeam(2, 19);
+		usecase.addFanToTeam(usecase.getFanById(8), usecase.getTeamById(2));
+		usecase.addFanToTeam(usecase.getFanById(9), usecase.getTeamById(2));
+		usecase.addFanToTeam(usecase.getFanById(10), usecase.getTeamById(2));
+		usecase.addFanToTeam(usecase.getFanById(11), usecase.getTeamById(2));
 		
-		// players hinzufügen
+		usecase.addTeamToClub(3,3);
+		usecase.addPlayerToTeam(3, 20);
+		usecase.addPlayerToTeam(3, 21);
+		usecase.addPlayerToTeam(3, 22);	
 		
-		
-		Team team = test.getTeam(1);
-		Club club = test.getClub(1);
-		Coach coach = test.getCoach(1);
-		
-		test.addTeamToClub(team, club);
-		test.addCoachToTeam(coach, team);
-		
-		team = test.getTeam(2);
-		club = test.getClub(2);
-		coach = test.getCoach(2);
-		
-		test.addTeamToClub(team, club);
-		test.addCoachToTeam(coach, team);
-		
-		team = test.getTeam(3);
-		club = test.getClub(3);
-		coach = test.getCoach(3);
-		
-		test.addTeamToClub(team, club);
-		test.addCoachToTeam(coach, team);
-		
-		team = test.getTeam(4);
-		club = test.getClub(4);
-		coach = test.getCoach(4);
-		
-		test.addTeamToClub(team, club);
-		test.addCoachToTeam(coach, team);
+		usecase.addTeamToClub(4,4);
+		usecase.addPlayerToTeam(4, 23);
+		usecase.addPlayerToTeam(4, 24);
 		
 		
-		test.addRound("Vorrunde", new GregorianCalendar(2013,9,7), new GregorianCalendar(2013,12,14), "2 Aufsteiger, 2 Absteiger");
-		test.addGame(new GregorianCalendar(2013,9,7,13,15,0), "Zofingen BZZ",1); // Teams hinzufügen
-		test.addGame(new GregorianCalendar(2013,9,7,16,30,0), "Brugg Mühlimatt",1); // Teams hinzufügen
+		usecase.addRound("Vorrunde", new GregorianCalendar(2013,9,7), new GregorianCalendar(2013,12,14), "2 Aufsteiger, 2 Absteiger");
+		
+		usecase.addGame(new GregorianCalendar(2013,9,7,13,15,0), "Klingnau Schützenmatt",1); 
+		usecase.addGame(new GregorianCalendar(2013,9,7,16,30,0), "Wohlen Hofmatten",1);
+		usecase.addGame(new GregorianCalendar(2013,9,7,20,15,0), "Zofingen BZZ",1);
+		usecase.addGame(new GregorianCalendar(2013,9,14,15,0,0), "Buchs Suhrenmatte",1);
+		usecase.addGame(new GregorianCalendar(2013,9,14,15,15,0), "Schöftland SPH",1);
+		usecase.addGame(new GregorianCalendar(2013,9,14,17,30,0), "Klingnau Schützenmatt",1);
+		
+		usecase.addHomeTeamToGame(1, 1);
+		usecase.addAwayTeamToGame(1, 2);
+		usecase.addHomeTeamToGame(2, 3);
+		usecase.addAwayTeamToGame(2, 4);
+		usecase.addHomeTeamToGame(3, 1);
+		usecase.addAwayTeamToGame(3, 3);
+		usecase.addHomeTeamToGame(4, 2);
+		usecase.addAwayTeamToGame(4, 4);
+		usecase.addHomeTeamToGame(5, 1);
+		usecase.addAwayTeamToGame(5, 4);
+		usecase.addHomeTeamToGame(6, 2);
+		usecase.addAwayTeamToGame(6, 3);
 		
 		
-		/**
-		 * Read statements
-		 */
-		
-		/**
-		 * Update statements
-		 */
-		
-		// change time of game
-		// change players position
-		
-		
-		/**
-		 * Delete statements
-		 */
-		
-		// delete fan of team
-		// delete 
-		
-		
+		usecase.addGameToRound(1, 1);
+		usecase.addGameToRound(2, 1);
+		usecase.addGameToRound(3, 1);
+		usecase.addGameToRound(4, 1);
+		usecase.addGameToRound(5, 1);
+		usecase.addGameToRound(6, 1);
 	}
 	
 	/**
@@ -152,20 +221,15 @@ public class TestOperations {
 		}
 	}
 	
-	/**
-	 * @param team
-	 * @param club
-	 */
-	private void addTeamToClub(Team team, Club club) {
+	private void addTeamToClub(int clubid, int teamid) {
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		club.addTeam(team);
-		
 		try {
 			trns = session.beginTransaction();
+			Team team = (Team)session.get(Team.class,teamid);
+			team.setClubID(clubid);
 
-			session.update(club);
+			session.save(team);
 
 			session.getTransaction().commit();
 		} catch (RuntimeException e) {
@@ -176,23 +240,15 @@ public class TestOperations {
 		} finally{
 			session.flush();
 			session.close();
-		}
-		
+		} 
 	}
-	
-	/**
-	 * @param team
-	 * @param game
-	 */
-	private void addTeamToGame(Team team, Game game) {
-		
-	}
+
 	
 	/**
 	 * @param teamid
 	 * @return
 	 */
-	private Team getTeam(int teamid) {
+	private Team getTeamById(int teamid) {
 		Transaction trns = null;
 		Team team = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -215,62 +271,6 @@ public class TestOperations {
 		return team;
 	}
 	
-	/**
-	 * @return
-	 */
-	private List<Team> getTeams() {
-		Transaction trns = null;
-		List<Team> teams = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			Query q = session.createQuery("from Team as t");
-			teams = q.list();
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-		
-		return teams;
-	}
-	
-	/**
-	 * @param team
-	 */
-	private void updateTeam(Team team) {
-		Transaction trns = null;
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(team);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-	}
 	
 	/**
 	 * @param firstname
@@ -287,10 +287,8 @@ public class TestOperations {
 		try {
 			trns = session.beginTransaction();
 			
-			Person person = new Person();
 			Player player = new Player();
 
-			player.setPersonID(person.getId());
 			player.setFirstname(firstname);
 			player.setLastname(lastname);
 			player.setLicenceID(licenceID);
@@ -312,17 +310,20 @@ public class TestOperations {
 		} 
 	}
 	
+	
 	/**
+	 * 
 	 * @param team
-	 * @param player
+	 * @param playerid
 	 */
-	private void addPlayerToTeam(Team team, Player player) {
+	private void addPlayerToTeam(Team team, int playerid) {
+		int teamid = team.getId();
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			
-			player.setTeamID(team.getId());
+			Player player = (Player)session.get(Player.class,playerid);
+			player.setTeamID(teamid);
 
 			session.save(player);
 
@@ -339,20 +340,41 @@ public class TestOperations {
 	}
 	
 	/**
+	 * 
+	 * @param teamid
 	 * @param playerid
-	 * @return
 	 */
-	private Player getPlayer(int playerid) {
+	private void addPlayerToTeam(int teamid, int playerid) {
+		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Player player = (Player) session.get(Player.class, playerid);
-		
-		return player;
+		try {
+			trns = session.beginTransaction();
+			Player player = (Player)session.get(Player.class,playerid);
+			player.setTeamID(teamid);
+
+			session.save(player);
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+		} 
 	}
 	
 	/**
+	 * 
+	 * @param team
 	 * @return
 	 */
-	private List<Player> getPlayers() {
+	private List<Player> getPlayersOfSpecificTeam(Team team) {
+		
+		int teamid = team.getId();
+		
 		Transaction trns = null;
 		List<Player> players = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -360,7 +382,8 @@ public class TestOperations {
 		try {
 			trns = session.beginTransaction();
 			
-			Query q = session.createQuery("from Player as p");
+			Query q =	session.createQuery("from Player as p where p.teamID = " + teamid);
+			
 			players = q.list();
 			
 			session.getTransaction().commit();			
@@ -380,33 +403,6 @@ public class TestOperations {
 	}
 	
 	/**
-	 * @param player
-	 */
-	private void updatePlayer(Player player) {
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(player);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-	}
-	
-	
-	/**
 	 * @param firstname
 	 * @param lastname
 	 */
@@ -417,10 +413,8 @@ public class TestOperations {
 		try {
 			trns = session.beginTransaction();
 
-			Person person = new Person();
 			Fan fan = new Fan();
 
-			fan.setPersonID(person.getId());
 			fan.setFirstname(firstname);
 			fan.setLastname(lastname);
 
@@ -438,116 +432,13 @@ public class TestOperations {
 		} 
 	}
 	
-	private void addFanToTeam(Fan fan, Team team) {
-		
-	}
-	
 	/**
-	 * @param fanid
-	 * @return
-	 */
-	private Fan getFan(int fanid) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Fan fan = (Fan) session.get(Fan.class, fanid);
-		
-		return fan;
-	}
-	
-	/**
-	 * @return
-	 */
-	private List<Fan> getFans() {
-		Transaction trns = null;
-		List<Fan> fans = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			Query q = session.createQuery("from Fan as f");
-			fans = q.list();
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-		
-		return fans;
-	}
-	
-	/**
+	 * 
 	 * @param fan
-	 */
-	private void updateFan(Fan fan) {
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(fan);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-	}
-	
-	/**
-	 * @param firstname
-	 * @param lastname
-	 */
-	private void addCoach(String firstname, String lastname) {
-
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			trns = session.beginTransaction();
-
-			Person person = new Person();
-			Coach coach = new Coach();
-			
-			coach.setPersonID(person.getId());
-			coach.setFirstname(firstname);
-			coach.setLastname(lastname);
-
-			session.save(coach);
-
-			session.getTransaction().commit();
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-		} 
-	}
-	
-	/**
-	 * @param coach
 	 * @param team
 	 */
-	private void addCoachToTeam(Coach coach, Team team) {
-		
-		team.addCoach(coach);		
+	private void addFanToTeam(Fan fan, Team team) {
+		team.getFans().add(fan);
 		Transaction trns = null;
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -572,10 +463,161 @@ public class TestOperations {
 	}
 	
 	/**
+	 * 
+	 * @param fanid
+	 * @return
+	 */
+	private Fan getFanById(int fanid) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Fan fan = (Fan) session.get(Fan.class, fanid);
+		
+		return fan;
+	}
+	
+	/**
+	 * 
+	 * @param firstname
+	 * @param lastname
+	 * @return
+	 */
+	private Fan getFanByName(String firstname, String lastname) {
+		Transaction trns = null;
+		Fan fan = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			trns = session.beginTransaction();
+			
+			Query q = 	session.createQuery("from Fan as fan where fan.firstname = :firstname and fan.lastname = :lastname")
+						.setString("firstname", firstname)
+						.setString("lastname",lastname)
+						.setMaxResults(1);
+			
+			List<Fan> fans = q.list();
+			
+			for(Iterator<Fan> i = fans.iterator(); i.hasNext();) {
+				fan = i.next();
+			}
+			
+			session.getTransaction().commit();			
+			
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+			
+		}
+		
+		return fan;
+	}
+	
+	
+	/**
+	 * 
+	 * @param firstname
+	 * @param lastname
+	 * @param level
+	 */
+	private void addCoach(String firstname, String lastname, int level) {
+
+		Transaction trns = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			trns = session.beginTransaction();
+
+			Coach coach = new Coach();
+			
+			coach.setFirstname(firstname);
+			coach.setLastname(lastname);
+			coach.setLevel(level);
+
+			session.save(coach);
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+		} 
+	}
+	
+	/**
+	 * @param coach
+	 * @param team
+	 */
+	private void addCoachToTeam(Coach coach, Team team) {
+		team.getCoaches().add(coach);
+		Transaction trns = null;
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			trns = session.beginTransaction();
+			
+			session.update(team);
+			
+			session.getTransaction().commit();
+			
+			System.out.println("Sucessfully added coach to team.");
+			
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+			
+		}
+	}
+	
+	/**
+	 * 
+	 * @param coach
+	 * @param team
+	 */
+	private void removeCoachFromTeam(Coach coach, Team team) {
+		team.getCoaches().remove(coach);
+		System.out.println(coach.getFirstname());
+		Transaction trns = null;
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			trns = session.beginTransaction();
+			
+			session.update(team);
+			
+			session.getTransaction().commit();
+			System.out.println("Sucessfully removed coach from team.");
+			
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+			
+		}
+	}
+	
+	
+	/**
 	 * @param coachid
 	 * @return
 	 */
-	private Coach getCoach(int coachid) {
+	private Coach getCoachById(int coachid) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Coach coach = (Coach) session.get(Coach.class, coachid);
 		
@@ -583,18 +625,29 @@ public class TestOperations {
 	}
 	
 	/**
+	 * 
+	 * @param firstname
+	 * @param lastname
 	 * @return
 	 */
-	private List<Coach> getCoaches() {
+	private Coach getCoachByName(String firstname, String lastname) {
 		Transaction trns = null;
-		List<Coach> coaches = null;
+		Coach coach = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		try {
 			trns = session.beginTransaction();
 			
-			Query q = session.createQuery("from Coach as c");
-			coaches = q.list();
+			Query q = 	session.createQuery("from Coach as coach where coach.firstname = :firstname and coach.lastname = :lastname")
+						.setString("firstname", firstname)
+						.setString("lastname",lastname)
+						.setMaxResults(1);
+			
+			List<Coach> coaches = q.list();
+			
+			for(Iterator<Coach> i = coaches.iterator(); i.hasNext();) {
+				coach = i.next();
+			}
 			
 			session.getTransaction().commit();			
 			
@@ -609,35 +662,8 @@ public class TestOperations {
 			
 		}
 		
-		return coaches;
+		return coach;
 	}
-	
-	/**
-	 * @param coach
-	 */
-	private void updateCoach(Coach coach) {
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(coach);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-	}
-	
 	
 	/**
 	 * @param name
@@ -672,7 +698,7 @@ public class TestOperations {
 	 * @param clubid
 	 * @return
 	 */
-	private Club getClub(int clubid) {
+	private Club getClubById(int clubid) {
 		Transaction trns = null;
 		Club club = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -693,6 +719,77 @@ public class TestOperations {
 		}
 		
 		return club;
+	}
+	
+	/**
+	 * @param name
+	 * @return
+	 */
+	private Club getClubByName(String name) {
+		Transaction trns = null;
+		Club club = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			trns = session.beginTransaction();
+			
+			Query q = 	session.createQuery("from Club as club where club.name = :name")
+						.setString("name", name)
+						.setMaxResults(1);
+			
+			List<Club> clubs = q.list();
+			
+			for(Iterator<Club> i = clubs.iterator(); i.hasNext();) {
+				club = i.next();
+			}
+			
+			session.getTransaction().commit();			
+			
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+			
+		}
+		
+		return club;
+	}
+	
+	/**
+	 * 
+	 * @param club
+	 * @param name
+	 */
+	private void changeNameOfClub(Club club, String name) {
+		
+		club.setName(name);
+		
+		Transaction trns = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			trns = session.beginTransaction();
+			
+			session.update(club);
+			
+			session.getTransaction().commit();
+			
+			System.out.println("Club name was successfully changed to " + name);
+			
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+			
+		}
 	}
 	
 	/**
@@ -726,34 +823,10 @@ public class TestOperations {
 	}
 	
 	/**
-	 * @param club
-	 */
-	private void updateClub(Club club) {
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(club);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-	}
-	
-	/**
+	 * 
 	 * @param starttime
 	 * @param location
+	 * @param roundID
 	 */
 	private void addGame(GregorianCalendar starttime,String location, int roundID) {
 
@@ -783,27 +856,91 @@ public class TestOperations {
 	}
 	
 	/**
-	 * @param game
-	 * @param round
+	 * 
+	 * @param gameid
+	 * @param teamid
 	 */
-	private void addGameToRound(Game game, Round round) {
-		
+	private void addHomeTeamToGame(int gameid, int teamid) {
+		Transaction trns = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			trns = session.beginTransaction();
+			Game game = (Game)session.get(Game.class,gameid);
+			game.setTeamHomeId(teamid);
+
+			session.save(game);
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+		} 
 	}
 	
+	private void addAwayTeamToGame(int gameid, int teamid) {
+		Transaction trns = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			trns = session.beginTransaction();
+			Game game = (Game)session.get(Game.class,gameid);
+			game.setTeamAwayId(teamid);
 
+			session.save(game);
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+		} 
+	}
+	
+	/**
+	 * 
+	 * @param gameID
+	 * @param roundID
+	 */
+	private void addGameToRound(int gameID, int roundID) {
+		Transaction trns = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			trns = session.beginTransaction();
+			Game game = (Game)session.get(Game.class,roundID);
+			game.setRoundID(roundID);
+
+			session.save(game);
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if(trns != null){
+				trns.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.flush();
+			session.close();
+		} 
+	}
 	
 	/**
 	 * @param gameid
 	 * @return
 	 */
-	private Game getGame(int gameid) {
+	private Game getGameById(int gameid) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Game game = (Game) session.get(Game.class, gameid);
 		
 		return game;
 	}
-	
-	
 
 	
 	/**
@@ -837,33 +974,7 @@ public class TestOperations {
 	}
 	
 	/**
-	 * @param game
-	 */
-	private void updateGame(Game game) {
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(game);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-	}
-	
-	
-	/**
+	 * 
 	 * @param name
 	 * @param startdate
 	 * @param enddate
@@ -894,74 +1005,6 @@ public class TestOperations {
 		} finally {
 			session.flush();
 			session.close();
-		}
-	}
-
-	
-	/**
-	 * @param roundid
-	 * @return
-	 */
-	private Round getRound(int roundid) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Round round = (Round) session.get(Round.class, roundid);
-		
-		return round;
-	}
-	
-	/**
-	 * @return
-	 */
-	private List<Round> getRounds() {
-		Transaction trns = null;
-		List<Round> rounds = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			Query q = session.createQuery("from Round as r");
-			rounds = q.list();
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
-		}
-		
-		return rounds;
-	}
-	
-	/**
-	 * @param round
-	 */
-	private void updateRound(Round round) {
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		try {
-			trns = session.beginTransaction();
-			
-			session.update(round);
-			
-			session.getTransaction().commit();			
-			
-		} catch (RuntimeException e) {
-			if(trns != null){
-				trns.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.flush();
-			session.close();
-			
 		}
 	}
 }

@@ -3,12 +3,10 @@
  * University of Applied Sciences of Northwestern Switzerland, FHNW
  * Computer Science, Software Engineering & Design
  * fabian.kuenzli@gmail.com
- * (c) 2013
+ * (c) 2014
  */
 
 package com.hib;
-
-import java.util.List;
 
 public class Player extends Person {
 	
