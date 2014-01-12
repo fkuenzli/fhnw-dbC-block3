@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Team {
-	private int id;
+	private int teamid;
 	private String name;
 	private int clubID;
 	private Set<Fan> fans = new HashSet<Fan>(0);
@@ -32,11 +32,11 @@ public class Team {
 	}
 
 	public int getId() {
-		return id;
+		return teamid;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.teamid = id;
 	}
 
 	public String getName() {
@@ -54,10 +54,6 @@ public class Team {
 	public void setFans(Set<Fan> fans) {
 		this.fans = fans;
 	}
-	
-	public void addFan(Fan fan) {
-		this.fans.add(fan);
-	}
 
 	public Set<Coach> getCoaches() {
 		return coaches;
@@ -65,10 +61,6 @@ public class Team {
 
 	public void setCoaches(Set<Coach> coaches) {
 		this.coaches = coaches;
-	}
-	
-	public void addCoach(Coach coach) {
-		this.coaches.add(coach);
 	}
 
 	public int getClubID() {

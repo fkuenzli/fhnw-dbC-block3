@@ -8,9 +8,14 @@
 
 package com.hib;
 
+
+import java.util.Set;
+import java.util.HashSet;
+
 public class Fan extends Person {
 	
 	private int personID;
+	private Set<Team> teams = new HashSet<Team>(0);
 
 	public Fan() {
 		super();
@@ -27,6 +32,14 @@ public class Fan extends Person {
 
 	public void setPersonID(int personID) {
 		this.personID = personID;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
 	}
 	
 }

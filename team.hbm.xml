@@ -25,10 +25,10 @@
 		<property name="clubID">
 			<column name="club_id" />
 		</property>
-		
+
 		<set name="fans" table="teamsfans" cascade="all" lazy="false">
 			<key column="team_id"/>
-			 <many-to-many column="fan_id" class="com.hib.Fan"/>
+			<many-to-many column="fan_id" class="com.hib.Fan"/>
 		</set>
 		
 		<set name="coaches" table="teamscoaches" cascade="all" lazy="false">

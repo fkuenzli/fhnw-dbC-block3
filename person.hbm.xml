@@ -16,7 +16,7 @@
 
 <hibernate-mapping>
 	<class name="com.hib.Person" table="persons">
-		<id name="id" type="int" column="id" >
+		<id name="id" type="integer" column="id" >
 			<generator class="native"/>
 		</id>
 		
@@ -29,12 +29,16 @@
 		
 		<joined-subclass name="com.hib.Coach" table="coaches">
 			<key column="person_id"/>
+			
+			<property name="level" type="integer">
+				<column name="level" />				
+			</property>
 		</joined-subclass>
 		
 		<joined-subclass name="com.hib.Player" table="players">
 			<key column="person_id"/>
 			
-			<property name="licenceID">
+			<property name="licenceID" type="integer">
 				<column name="licence_id" />
 			</property>
 			<property name="height">
@@ -49,12 +53,10 @@
 			<property name="teamID">
 				<column name="team_id"/>
 			</property>
-			
-			
 		</joined-subclass>
 		
 		<joined-subclass name="com.hib.Fan" table="fans">
-			<key column="person_id"/>					
+			<key column="person_id"/>
 		</joined-subclass>
 		
 		
